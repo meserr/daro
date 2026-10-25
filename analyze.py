@@ -1,7 +1,4 @@
-"""Statistical analysis of the saved results and critical difference diagrams.
 
-Usage: python analyze.py
-"""
 
 import os
 
