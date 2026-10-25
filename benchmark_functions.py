@@ -1,10 +1,3 @@
-"""Classical benchmark set used in the paper.
-
-F1-F7 unimodal, F8-F13 multimodal (Yao et al., 1999), F14-F23 fixed-dimension multimodal,
-F24-F31 composition functions built on the CEC2014 framework (Liang et al., 2013)
-with identity rotation and fixed-seed shift vectors.
-"""
-
 import numpy as np
 
 
@@ -18,55 +11,45 @@ def _u(x, a, k, m):
 
 
 def F1(x):
-    """Sphere  |  [-100, 100]^D  |  f* = 0"""
     return np.sum(x ** 2)
 
 
 def F2(x):
-    """Schwefel 2.22  |  [-10, 10]^D  |  f* = 0"""
     ax = np.abs(x)
     return np.sum(ax) + np.prod(ax)
 
 
 def F3(x):
-    """Schwefel 1.2  |  [-100, 100]^D  |  f* = 0"""
     return np.sum(np.cumsum(x) ** 2)
 
 
 def F4(x):
-    """Schwefel 2.21 (max |x_i|)  |  [-100, 100]^D  |  f* = 0"""
     return np.max(np.abs(x))
 
 
 def F5(x):
-    """Rosenbrock  |  [-30, 30]^D  |  f* = 0"""
     return np.sum(100.0 * (x[1:] - x[:-1] ** 2) ** 2 + (x[:-1] - 1) ** 2)
 
 
 def F6(x):
-    """Step  |  [-100, 100]^D  |  f* = 0"""
     return np.sum(np.floor(x + 0.5) ** 2)
 
 
 def F7(x):
-    """Quartic + noise  |  [-1.28, 1.28]^D  |  f* ≈ 0"""
     d = len(x)
     i = np.arange(1, d + 1)
     return np.sum(i * x ** 4) + np.random.rand()
 
 
 def F8(x):
-    """Schwefel 2.26  |  [-500, 500]^D  |  f* ≈ -418.9829*D"""
     return np.sum(-x * np.sin(np.sqrt(np.abs(x))))
 
 
 def F9(x):
-    """Rastrigin  |  [-5.12, 5.12]^D  |  f* = 0"""
     return np.sum(x ** 2 - 10 * np.cos(2 * np.pi * x) + 10)
 
 
 def F10(x):
-    """Ackley  |  [-32, 32]^D  |  f* = 0"""
     d = len(x)
     return (-20 * np.exp(-0.2 * np.sqrt(np.sum(x ** 2) / d))
             - np.exp(np.sum(np.cos(2 * np.pi * x)) / d)
@@ -74,13 +57,11 @@ def F10(x):
 
 
 def F11(x):
-    """Griewank  |  [-600, 600]^D  |  f* = 0"""
     i = np.arange(1, len(x) + 1)
     return np.sum(x ** 2) / 4000 - np.prod(np.cos(x / np.sqrt(i))) + 1
 
 
 def F12(x):
-    """Penalized 1  |  [-50, 50]^D  |  f* = 0"""
     d = len(x)
     y = 1 + (x + 1) / 4
     term1 = 10 * np.sin(np.pi * y[0]) ** 2
@@ -91,7 +72,6 @@ def F12(x):
 
 
 def F13(x):
-    """Penalized 2  |  [-50, 50]^D  |  f* = 0"""
     term1 = np.sin(3 * np.pi * x[0]) ** 2
     term2 = np.sum((x[:-1] - 1) ** 2 * (1 + np.sin(3 * np.pi * x[1:]) ** 2))
     term3 = (x[-1] - 1) ** 2 * (1 + np.sin(2 * np.pi * x[-1]) ** 2)
@@ -104,7 +84,6 @@ _A14 = np.array([[-32, -16, 0, 16, 32] * 5,
 
 
 def F14(x):
-    """Shekel Foxholes  |  [-65.536, 65.536]^2  |  f* ≈ 1"""
     j = np.arange(25)
     val = j + 1 + np.sum(np.array([(x[k] - _A14[k]) ** 6 for k in range(2)]), axis=0)
     return (1.0 / 500 + np.sum(1.0 / val)) ** -1
@@ -116,27 +95,23 @@ _b15 = 1.0 / np.array([0.25, 0.5, 1, 2, 4, 6, 8, 10, 12, 14, 16])
 
 
 def F15(x):
-    """Kowalik  |  [-5, 5]^4  |  f* ≈ 0.0003075"""
     num = x[0] * (_b15 ** 2 + _b15 * x[1])
     den = _b15 ** 2 + _b15 * x[2] + x[3]
     return np.sum((_a15 - num / den) ** 2)
 
 
 def F16(x):
-    """Six-Hump Camel  |  [-5, 5]^2  |  f* ≈ -1.0316"""
     x1, x2 = x[0], x[1]
     return (4 - 2.1 * x1 ** 2 + x1 ** 4 / 3) * x1 ** 2 + x1 * x2 + (-4 + 4 * x2 ** 2) * x2 ** 2
 
 
 def F17(x):
-    """Branin  |  [-5, 10] x [0, 15]  |  f* ≈ 0.397887"""
     x1, x2 = x[0], x[1]
     return ((x2 - 5.1 / (4 * np.pi ** 2) * x1 ** 2 + 5 / np.pi * x1 - 6) ** 2
             + 10 * (1 - 1 / (8 * np.pi)) * np.cos(x1) + 10)
 
 
 def F18(x):
-    """Goldstein-Price  |  [-2, 2]^2  |  f* = 3"""
     x1, x2 = x[0], x[1]
     t1 = (1 + (x1 + x2 + 1) ** 2 *
           (19 - 14 * x1 + 3 * x1 ** 2 - 14 * x2 + 6 * x1 * x2 + 3 * x2 ** 2))
@@ -154,7 +129,6 @@ _pH3 = np.array([[0.3689, 0.1170, 0.2673],
 
 
 def F19(x):
-    """Hartman 3  |  [0, 1]^3  |  f* ≈ -3.8628"""
     outer = 0.0
     for i in range(4):
         inner = np.sum(_aH3[i] * (x - _pH3[i]) ** 2)
@@ -174,7 +148,6 @@ _pH6 = np.array([[0.1312, 0.1696, 0.5569, 0.0124, 0.8283, 0.5886],
 
 
 def F20(x):
-    """Hartman 6  |  [0, 1]^6  |  f* ≈ -3.3224"""
     outer = 0.0
     for i in range(4):
         inner = np.sum(_aH6[i] * (x - _pH6[i]) ** 2)
@@ -204,17 +177,14 @@ def _shekel(x, m):
 
 
 def F21(x):
-    """Shekel 5  |  [0, 10]^4  |  f* ≈ -10.1532"""
     return _shekel(x, 5)
 
 
 def F22(x):
-    """Shekel 7  |  [0, 10]^4  |  f* ≈ -10.4029"""
     return _shekel(x, 7)
 
 
 def F23(x):
-    """Shekel 10  |  [0, 10]^4  |  f* ≈ -10.5364"""
     return _shekel(x, 10)
 
 
@@ -322,7 +292,6 @@ def _composition(x, sub_funcs, sigmas, lambdas, biases, f_opt, shifts):
 
 
 def F24(x):
-    """CF1 (N=5): Rosenbrock+Elliptic+BentCigar+Discus+Elliptic  |  [-100,100]^30  |  f*=2300"""
     return _composition(x,
         [_cf_rosenbrock, _cf_elliptic, _cf_bent_cigar, _cf_discus, _cf_elliptic],
         [10, 20, 30, 40, 50], [1, 1e-6, 1e-26, 1e-6, 1e-6],
@@ -330,7 +299,6 @@ def F24(x):
 
 
 def F25(x):
-    """CF2 (N=3): Schwefel+Rastrigin+HGBat  |  [-100,100]^30  |  f*=2400"""
     return _composition(x,
         [_cf_schwefel, _cf_rastrigin, _cf_hgbat],
         [20, 20, 20], [10, 1, 1],
@@ -338,7 +306,6 @@ def F25(x):
 
 
 def F26(x):
-    """CF3 (N=3): Schwefel+Rastrigin+HGBat  |  [-100,100]^30  |  f*=2500"""
     return _composition(x,
         [_cf_schwefel, _cf_rastrigin, _cf_hgbat],
         [10, 30, 50], [10, 1, 1],
@@ -346,7 +313,6 @@ def F26(x):
 
 
 def F27(x):
-    """CF4 (N=5): Schwefel+HappyCat+HGBat+Rastrigin+Ackley  |  [-100,100]^30  |  f*=2600"""
     return _composition(x,
         [_cf_schwefel, _cf_happycat, _cf_hgbat, _cf_rastrigin, _cf_ackley],
         [10, 20, 30, 40, 50], [10, 1, 1, 1, 1],
@@ -354,7 +320,6 @@ def F27(x):
 
 
 def F28(x):
-    """CF5 (N=5): HGBat+Rastrigin+Schwefel+Weierstrass+Elliptic  |  [-100,100]^30  |  f*=2700"""
     return _composition(x,
         [_cf_hgbat, _cf_rastrigin, _cf_schwefel, _cf_weierstrass, _cf_elliptic],
         [10, 20, 30, 40, 50], [10, 10, 2.5, 1e-26, 1e-6],
@@ -362,7 +327,6 @@ def F28(x):
 
 
 def F29(x):
-    """CF6 (N=3): HGBat+Rastrigin+Schwefel  |  [-100,100]^30  |  f*=2800"""
     return _composition(x,
         [_cf_hgbat, _cf_rastrigin, _cf_schwefel],
         [20, 20, 20], [10, 10, 2.5],
@@ -370,7 +334,6 @@ def F29(x):
 
 
 def F30(x):
-    """CF7 (N=3): Rastrigin+HappyCat+Ackley  |  [-100,100]^30  |  f*=2900"""
     return _composition(x,
         [_cf_rastrigin, _cf_happycat, _cf_ackley],
         [10, 30, 50], [10, 1, 1],
@@ -378,7 +341,6 @@ def F30(x):
 
 
 def F31(x):
-    """CF8 (N=3): Ackley+Discus+Griewank  |  [-100,100]^30  |  f*=3000"""
     return _composition(x,
         [_cf_ackley, _cf_discus, _cf_griewank],
         [10, 30, 50], [10, 1e-6, 1],
@@ -421,7 +383,6 @@ FUNCTIONS = {
 
 
 def get_function_info(name: str, dim: int = 30):
-    """Returns (func, lb, ub, dim, fmin); dim is used only for F1-F13."""
     info = FUNCTIONS[name]
     func = info["func"]
     d = info["dim"] if info["dim"] is not None else dim

@@ -1,8 +1,3 @@
-"""CEC2017 (official definitions, minionpy): F1 and F3-F30 at D = 30, 50, 100.
-
-Usage: python run_cec2017.py [D ...]
-"""
-
 import os
 import sys
 import time

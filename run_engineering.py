@@ -1,12 +1,3 @@
-"""Constrained engineering problems.
-
-The search is guided by a static penalty f(x) + lambda * sum(max(0, g_i(x))^2); the reported
-result of each run is the best fully feasible solution (all g_i(x) <= 0, no tolerance).
-N = 30, T = 500 (30 + 30 * 500 = 15,030 evaluations); L-SHADE and IPOP-CMA-ES use the same budget.
-
-Usage: python run_engineering.py
-"""
-
 import os
 import time
 from multiprocessing import Pool
@@ -24,7 +15,6 @@ OUT = os.path.join(RESULTS_DIR, "engineering.pkl")
 
 
 class Tracker:
-    """Penalised objective that keeps the best feasible solution found."""
 
     def __init__(self, name, budget=None):
         self.obj, self.cons, self.fix, self.lam, lb, ub = PROBLEMS[name]

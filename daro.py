@@ -1,31 +1,7 @@
-"""D-ARO: Artificial Rabbits Optimization with search-progress aware energy adaptation.
-
-Base algorithm: Wang et al. (2022), Artificial rabbits optimization, EAAI 114, 105082.
-"""
-
 import numpy as np
 
 
 class DARO:
-    """
-    Parameters
-    ----------
-    func : callable, objective f(x) -> float (minimised)
-    lb, ub : array-like, bounds of shape (dim,)
-    dim : int
-    n_rabbits : int, population size N
-    max_iter : int, number of iterations T
-    stag_limit : int, threshold tau on the age counter
-    use_stagnation : bool, if False the age counter is not kept and phi = 1
-    phi_mode : str, energy factor applied when age >= tau
-        'log'          phi = 1 + ln(age + 1)   (D-ARO)
-        'none'         phi = 1
-        'linear'       phi = 1 + age
-        'const'        phi = 3
-        'trunc_linear' phi = min(1 + age, 1 + ln(T + 1))
-        'restart'      the individual is re-initialised uniformly in the search space
-    seed : int or None
-    """
 
     def __init__(self, func, lb, ub, dim, n_rabbits=50, max_iter=1000, stag_limit=10,
                  use_stagnation=True, phi_mode='log', seed=None):
@@ -99,7 +75,6 @@ class DARO:
                     A_i = A_global * self._phi(self.age[i])
 
                 if A_i > 1:
-                    # detour foraging
                     j = np.random.randint(0, n - 1)
                     if j >= i:
                         j += 1
@@ -109,7 +84,6 @@ class DARO:
                     n1 = np.random.randn(d)
                     vi = xj + R * (xi - xj) + np.round(0.5 * (0.05 + r1)) * n1
                 else:
-                    # random hiding
                     r4 = np.random.rand()
                     H = ((T - t + 1) / T) * r4
                     g = np.zeros(d)

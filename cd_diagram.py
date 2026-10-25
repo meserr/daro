@@ -1,5 +1,3 @@
-"""Critical difference diagram for the Nemenyi test."""
-
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -19,7 +17,6 @@ def draw_cd(names, ranks, cd, out, highlight="D-ARO", n_left=None):
         ax.plot([r, r], [-0.03, 0.03], color="black", linewidth=1.5)
         ax.text(r, -0.06, str(r), ha="center", va="top", fontsize=12, fontweight="bold")
 
-    # groups of algorithms whose rank difference is below cd
     groups = []
     for i in range(k):
         j = max(j for j in range(i, k) if sr[j] - sr[i] <= cd)

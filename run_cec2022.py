@@ -1,11 +1,3 @@
-"""CEC2022 (official definitions, minionpy): F1-F12 at D = 10 and 20.
-
-The seven population-based algorithms use N = 50, T = 1000; L-SHADE and IPOP-CMA-ES
-use a budget of 50,000 function evaluations.
-
-Usage: python run_cec2022.py
-"""
-
 import os
 import time
 from multiprocessing import Pool

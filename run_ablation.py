@@ -1,16 +1,3 @@
-"""Ablation of the energy factor phi and sensitivity to tau.
-
-Variants (tau = 10): none, linear, const, trunc_linear, restart.
-Thresholds (phi = log): tau = 5, 15, 20, 30.
-The reference configuration (phi = log, tau = 10) is D-ARO itself, taken from the main runs.
-
-Usage:
-    python run_ablation.py classical      57 classical cases
-    python run_ablation.py cec2017        CEC2017, D = 30
-    python run_ablation.py cec2022        CEC2022, D = 10 and 20
-    python run_ablation.py cec2017-d100   CEC2017, D = 100, variant 'none' only
-"""
-
 import os
 import sys
 import time

@@ -1,11 +1,3 @@
-"""Run-time measurements of D-ARO (single process, one run timed at a time).
-
-scalability: CEC2017 F1, F5, F10, F15, F20, F25, F30 at D = 30, 50, 100.
-overhead:    D-ARO with and without the age counter (use_stagnation=True/False) on the same code.
-
-Usage: python run_timing.py
-"""
-
 import os
 import time
 

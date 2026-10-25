@@ -1,10 +1,3 @@
-"""Constrained engineering design problems (all constraints in the form g_i(x) <= 0).
-
-Welded beam (Ragsdell and Phillips, 1976), pressure vessel (Kannan and Kramer, 1994),
-tension/compression spring (Belegundu, 1982) and speed reducer (Golinski, 1973).
-Full definitions are given in the appendix of the paper.
-"""
-
 import numpy as np
 
 
@@ -53,7 +46,6 @@ def pressure_vessel_cons(x):
 
 
 def pressure_vessel_fix(x):
-    # Ts and Th are multiples of 0.0625
     x = np.array(x, dtype=float)
     x[0] = round(x[0] / 0.0625) * 0.0625
     x[1] = round(x[1] / 0.0625) * 0.0625
@@ -99,7 +91,6 @@ def speed_reducer_cons(x):
 
 
 def speed_reducer_fix(x):
-    # number of teeth z is an integer
     x = np.array(x, dtype=float)
     x[2] = float(np.round(x[2]))
     return x
@@ -109,7 +100,6 @@ def _identity(x):
     return x
 
 
-# name: (objective, constraints, repair, penalty coefficient, lb, ub)
 PROBLEMS = {
     "Welded Beam": (welded_beam_obj, welded_beam_cons, _identity, 1e6,
                     [0.1, 0.1, 0.1, 0.1], [2.0, 10.0, 10.0, 2.0]),

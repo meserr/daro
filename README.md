@@ -26,6 +26,7 @@ MEALPY is installed without its dependencies because version 3.0.3 restricts Num
 | `baselines.py` | L-SHADE (NiaPy) and IPOP-CMA-ES (pycma) under a fixed evaluation budget |
 | `benchmark_functions.py` | Classical set F1-F31 |
 | `engineering_problems.py` | Welded beam, pressure vessel, tension/compression spring, speed reducer |
+| `docs/engineering_problems.md` | Formulations of the engineering problems |
 | `common.py` | Common settings (N = 50, T = 1000, tau = 10, 30 runs) |
 | `stat_tests.py`, `cd_diagram.py` | Friedman, Nemenyi, Holm, Wilcoxon rank-sum, A12; critical difference diagram |
 

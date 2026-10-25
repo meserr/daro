@@ -1,5 +1,3 @@
-"""Shared settings and helpers for the experiment scripts."""
-
 import os
 import pickle
 
@@ -35,14 +33,12 @@ def save(obj, path):
 
 
 def cec_function(year, fid, dim):
-    """Official CEC2017 / CEC2022 definitions from minionpy."""
     import minionpy as mp
     g = mp.CEC2017Functions(fid, dim) if year == 2017 else mp.CEC2022Functions(fid, dim)
     return lambda x: float(g(np.asarray(x, dtype=float)[None, :])[0])
 
 
 def run_algorithm(alg, f, lb, ub, dim, seed, pop=POP, iters=ITER, tau=TAU, phi_mode="log"):
-    """Runs D-ARO or a MEALPY algorithm; returns (best fitness, convergence curve)."""
     if alg == "D-ARO":
         from daro import DARO
         opt = DARO(f, lb, ub, dim, n_rabbits=pop, max_iter=iters, stag_limit=tau,

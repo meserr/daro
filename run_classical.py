@@ -1,8 +1,3 @@
-"""Classical benchmark set: F1-F13 (D = 30, 100, 500) and F14-F31, 57 cases.
-
-Usage: python run_classical.py
-"""
-
 import os
 import time
 from multiprocessing import Pool

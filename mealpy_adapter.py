@@ -1,5 +1,3 @@
-"""Runs the comparison algorithms from MEALPY 3.0.3 with the same interface as DARO."""
-
 import logging
 import numpy as np
 from mealpy import FloatVar
@@ -21,7 +19,6 @@ ALGORITHMS = {
 
 
 def run_mealpy_algorithm(name, func, lb, ub, dim, pop_size=50, max_iter=1000, seed=None, **params):
-    """Returns (best_position, best_fitness, convergence curve of length max_iter)."""
     lb = np.asarray(lb, dtype=float)
     ub = np.asarray(ub, dtype=float)
     problem = {

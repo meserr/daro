@@ -1,15 +1,10 @@
-"""Friedman test with Nemenyi critical difference, Holm procedure with a control algorithm,
-pairwise Wilcoxon rank-sum tests with Holm correction and the Vargha-Delaney A12 effect size."""
-
 import numpy as np
 from scipy import stats
 
-# studentised range statistic / sqrt(2), alpha = 0.05 (Demsar, 2006)
 Q05 = {2: 1.960, 3: 2.343, 4: 2.569, 5: 2.728, 6: 2.850, 7: 2.949, 8: 3.031, 9: 3.102, 10: 3.164}
 
 
 def a12(x, y):
-    """P(x < y) + 0.5 P(x = y); for minimisation, values above 0.5 favour x."""
     x, y = np.asarray(x), np.asarray(y)
     return ((x[:, None] < y[None, :]).sum() + 0.5 * (x[:, None] == y[None, :]).sum()) / (len(x) * len(y))
 
@@ -26,7 +21,6 @@ def holm_adjust(p):
 
 
 def analyse(res, algs, cases, ctrl, title=None):
-    """res[alg][case] -> array of final values from independent runs."""
     k, n = len(algs), len(cases)
     M = np.array([[np.mean(res[a][c]) for a in algs] for c in cases])
     ranks = np.vstack([stats.rankdata(row) for row in M]).mean(0)
